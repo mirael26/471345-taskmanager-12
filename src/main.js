@@ -1,5 +1,3 @@
-`use strict`;
-
 const createSiteMenuTemplate = () => {
   return (
     `<section class="control__btn-wrap">
@@ -370,8 +368,6 @@ const createLoadMoreButtonTemplate = () => {
     `<button class="load-more" type="button">load more</button>`
   );
 };
-
-
 
 const render = (containter, template, place) => {
   containter.insertAdjacentHTML(place, template);
