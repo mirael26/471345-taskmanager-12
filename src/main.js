@@ -5,6 +5,7 @@ import {createSortTemplate} from "./view/sort.js";
 import {createTaskEditTemplate} from "./view/task-edit.js";
 import {createTaskTemplate} from "./view/task.js";
 import {createLoadMoreButtonTemplate} from "./view/load-more-button.js";
+import {generateTask} from "./mock/task.js";
 
 const render = (containter, template, place) => {
   containter.insertAdjacentHTML(place, template);
