@@ -1,3 +1,29 @@
+const RenderPosition = {
+  AFTERBEGIN: `afterbegin`,
+  BEFOREEND: `beforeend`
+};
+
+const render = (container, element, place) => {
+  switch (place) {
+    case RenderPosition.AFTERBEGIN:
+      container.prepend(element);
+      break;
+    case RenderPosition.BEFOREEND:
+      container.append(element);
+      break;
+  }
+};
+
+const renderTemplate = (containter, template, place) => {
+  containter.insertAdjacentHTML(place, template);
+};
+
+const createElement = (template) => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+  return newElement.firstChild;
+};
+
 const getRandomInteger = (a = 0, b = 1) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -45,4 +71,4 @@ const humanizeTaskDueDate = (dueDate) => {
   return dueDate.toLocaleString(`en-US`, {day: `numeric`, month: `long`});
 };
 
-export {getRandomInteger, getRandomElement, isTaskExpired, isTaskRepeating, humanizeTaskDueDate, isTaskExpiringToday};
+export {RenderPosition, render, renderTemplate, createElement, getRandomInteger, getRandomElement, isTaskExpired, isTaskRepeating, humanizeTaskDueDate, isTaskExpiringToday};
