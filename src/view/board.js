@@ -1,24 +1,20 @@
 import {createElement} from "../util.js";
 
-const createBoardTemplate = () => {
-  return (
-    `<section class="board container">
-    </section>`
-  );
-};
-
 export default class Board {
   constructor() {
     this._element = null;
   }
 
-  getTemplate() {
-    return createBoardTemplate();
+  _getTemplate() {
+    return (
+      `<section class="board container">
+      </section>`
+    );
   }
 
   getElement() {
     if (!this._element) {
-      this._element = createElement(this.getTemplate());
+      this._element = createElement(this._getTemplate());
     }
 
     return this._element;
