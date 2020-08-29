@@ -1,14 +1,14 @@
 import {createElement} from "../util.js";
 
-export default class LoadMoreButton {
+export default class NoTasks {
   constructor() {
     this._element = null;
   }
 
   _getTemplate() {
-    return (
-      `<button class="load-more" type="button">load more</button>`
-    );
+    return `<p class="board__no-tasks">
+    Click «ADD NEW TASK» in menu to create your first task
+  </p>`;
   }
 
   getElement() {
