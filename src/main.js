@@ -11,7 +11,7 @@ import {generateTask} from "./mock/task.js";
 import {generateFilter} from "./mock/filter.js";
 import {render} from "./util.js";
 
-const TASK_COUNT = 0;
+const TASK_COUNT = 22;
 const TASK_COUNT_PER_STEP = 8;
 
 const tasks = new Array(TASK_COUNT).fill().map(generateTask);

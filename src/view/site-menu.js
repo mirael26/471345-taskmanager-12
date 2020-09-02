@@ -1,9 +1,6 @@
-import {createElement} from "../util.js";
+import AbstractView from "./abstract.js";
 
-export default class siteMenu {
-  constructor() {
-    this._element = null;
-  }
+export default class siteMenu extends AbstractView {
 
   _getTemplate() {
     return (
@@ -36,17 +33,5 @@ export default class siteMenu {
       >
     </section>`
     );
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this._getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

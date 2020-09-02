@@ -1,5 +1,6 @@
 import {COLORS} from "../const.js";
-import {isTaskExpired, isTaskRepeating, humanizeTaskDueDate, createElement} from "../util.js";
+import {isTaskExpired, isTaskRepeating, humanizeTaskDueDate} from "../util.js";
+import AbstractView from "./abstract.js";
 
 const blankTask = {
   color: COLORS[0],
@@ -18,10 +19,10 @@ const blankTask = {
   isFavorite: false,
 };
 
-export default class TaskEdit {
+export default class TaskEdit extends AbstractView {
   constructor(task = blankTask) {
+    super();
     this._task = task;
-    this._element = null;
   }
 
   _createDateTemplate(dueDate) {
@@ -139,17 +140,5 @@ export default class TaskEdit {
       </form>
       </article>`
     );
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this._getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
