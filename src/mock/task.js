@@ -1,5 +1,5 @@
 import {DESCRIPTIONS, COLORS} from "../const.js";
-import {getRandomInteger, getRandomElement} from "../util.js";
+import {getRandomInteger, getRandomElement} from "../utils/common.js";
 
 const generateDate = () => {
   const isDate = Boolean(getRandomInteger(0, 1));
