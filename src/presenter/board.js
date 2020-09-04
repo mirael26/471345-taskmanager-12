@@ -1,11 +1,11 @@
-import BoardView from "./view/board.js";
-import SortView from "./view/sort.js";
-import TaskEditView from "./view/task-edit.js";
-import TaskView from "./view/task.js";
-import LoadMoreButtonView from "./view/load-more-button.js";
-import TaskListView from "./view/task-list.js";
-import NoTasksView from "./view/no-tasks.js";
-import {render, replace, remove} from "./utils/render.js";
+import BoardView from "../view/board.js";
+import SortView from "../view/sort.js";
+import TaskEditView from "../view/task-edit.js";
+import TaskView from "../view/task.js";
+import LoadMoreButtonView from "../view/load-more-button.js";
+import TaskListView from "../view/task-list.js";
+import NoTasksView from "../view/no-tasks.js";
+import {render, replace, remove} from "../utils/render.js";
 
 const TASK_COUNT_PER_STEP = 8;
 
