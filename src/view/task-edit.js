@@ -1,5 +1,6 @@
 import {COLORS} from "../const.js";
-import {isTaskExpired, isTaskRepeating, humanizeTaskDueDate, createElement} from "../util.js";
+import {isTaskExpired, isTaskRepeating, humanizeTaskDueDate} from "../utils/task.js";
+import AbstractView from "./abstract.js";
 
 const blankTask = {
   color: COLORS[0],
@@ -18,10 +19,11 @@ const blankTask = {
   isFavorite: false,
 };
 
-export default class TaskEdit {
+export default class TaskEdit extends AbstractView {
   constructor(task = blankTask) {
+    super();
     this._task = task;
-    this._element = null;
+    this._formSubmitHandler = this._formSubmitHandler.bind(this);
   }
 
   _createDateTemplate(dueDate) {
@@ -141,15 +143,13 @@ export default class TaskEdit {
     );
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this._getTemplate());
-    }
-
-    return this._element;
+  _formSubmitHandler(evt) {
+    evt.preventDefault();
+    this._callback.formSubmit();
   }
 
-  removeElement() {
-    this._element = null;
+  setFormSubmitHandler(callback) {
+    this._callback.formSubmit = callback;
+    this.getElement().querySelector(`form`).addEventListener(`submit`, this._formSubmitHandler);
   }
 }
