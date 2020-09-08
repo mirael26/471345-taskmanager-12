@@ -6,4 +6,10 @@ const DESCRIPTIONS = [
 
 const COLORS = [`black`, `yellow`, `blue`, `green`, `pink`];
 
-export {DESCRIPTIONS, COLORS};
+const SortType = {
+  DEFAULT: `default`,
+  DATE_DOWN: `date-down`,
+  DATE_UP: `date-up`
+};
+
+export {DESCRIPTIONS, COLORS, SortType};
