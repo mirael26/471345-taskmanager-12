@@ -8,11 +8,13 @@ import NoTasksView from "../view/no-tasks.js";
 import {render, replace, remove} from "../utils/render.js";
 
 const TASK_COUNT_PER_STEP = 8;
+const START_TASK_COUNT = 0;
 
 export default class Board {
   constructor(boardContainer) {
     this._boardContainer = boardContainer;
-    this._renderedTaskCound = TASK_COUNT_PER_STEP;
+    this._startTaskCount = START_TASK_COUNT;
+    this._renderedTaskCount = TASK_COUNT_PER_STEP;
 
     this._boardComponent = new BoardView();
     this._sortComponent = new SortView();
@@ -93,7 +95,7 @@ export default class Board {
   }
 
   _renderTaskList() {
-    this._renderTasks(0, Math.min(this._boardTasks.length, TASK_COUNT_PER_STEP));
+    this._renderTasks(this._startTaskCount, Math.min(this._boardTasks.length, TASK_COUNT_PER_STEP));
 
     if (this._boardTasks.length > TASK_COUNT_PER_STEP) {
       this._renderLoadMoreButton();
