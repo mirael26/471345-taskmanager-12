@@ -6,13 +6,18 @@ import LoadMoreButtonView from "../view/load-more-button.js";
 import TaskListView from "../view/task-list.js";
 import NoTasksView from "../view/no-tasks.js";
 import {render, replace, remove} from "../utils/render.js";
+import {sortTaskUp, sortTaskDown} from "../utils/task.js";
+import {SortType} from "../const.js";
 
 const TASK_COUNT_PER_STEP = 8;
+const START_TASK_COUNT = 0;
 
 export default class Board {
   constructor(boardContainer) {
     this._boardContainer = boardContainer;
-    this._renderedTaskCound = TASK_COUNT_PER_STEP;
+    this._startTaskCount = START_TASK_COUNT;
+    this._renderedTaskCount = TASK_COUNT_PER_STEP;
+    this._currentSortType = SortType.DEFAULT;
 
     this._boardComponent = new BoardView();
     this._sortComponent = new SortView();
@@ -21,18 +26,46 @@ export default class Board {
     this._loadMoreButtonComponent = new LoadMoreButtonView();
 
     this._handleLoadMoreButtonClick = this._handleLoadMoreButtonClick.bind(this);
+    this._handleSortTypeChange = this._handleSortTypeChange.bind(this);
   }
 
   init(boardTasks) {
     this._boardTasks = boardTasks.slice();
+    this._sourcedBoardTasks = boardTasks.slice();
     render(this._boardContainer, this._boardComponent, `beforeend`);
     render(this._boardComponent, this._taskListComponent, `beforeend`);
 
     this._renderBoard();
   }
 
+  _sortTasks(sortType) {
+    switch (sortType) {
+      case SortType.DATE_UP:
+        this._boardTasks.sort(sortTaskUp);
+        break;
+      case SortType.DATE_DOWN:
+        this._boardTasks.sort(sortTaskDown);
+        break;
+      default:
+        this._boardTasks = this._sourcedBoardTasks.slice();
+    }
+
+    this._currentSortType = sortType;
+  }
+
+  _handleSortTypeChange(sortType) {
+    if (this._currentSortType === sortType) {
+      return;
+    }
+
+    this._sortTasks(sortType);
+    this._clearTaskList();
+    this._renderTaskList();
+  }
+
   _renderSort() {
     render(this._boardComponent, this._sortComponent, `afterbegin`);
+    this._sortComponent.setSortTypeChangeHandler(this._handleSortTypeChange);
   }
 
   _renderTask(task) {
@@ -92,8 +125,13 @@ export default class Board {
     this._loadMoreButtonComponent.setClickHandler(this._handleLoadMoreButtonClick);
   }
 
+  _clearTaskList() {
+    this._taskListComponent.getElement().innerHTML = ``;
+    this._renderTaskCount = TASK_COUNT_PER_STEP;
+  }
+
   _renderTaskList() {
-    this._renderTasks(0, Math.min(this._boardTasks.length, TASK_COUNT_PER_STEP));
+    this._renderTasks(this._startTaskCount, Math.min(this._boardTasks.length, TASK_COUNT_PER_STEP));
 
     if (this._boardTasks.length > TASK_COUNT_PER_STEP) {
       this._renderLoadMoreButton();
